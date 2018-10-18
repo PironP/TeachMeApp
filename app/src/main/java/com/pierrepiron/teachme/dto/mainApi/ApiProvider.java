@@ -1,6 +1,5 @@
 package com.pierrepiron.teachme.dto.mainApi;
 
-
 import com.pierrepiron.teachme.dto.mapper.StockageMapper;
 import com.pierrepiron.teachme.dto.model.EStockage;
 import com.pierrepiron.teachme.dto.model.Stockage;
@@ -16,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiProvider {
 
-    private static final String BASE_URL = "https://kaamelott-api.herokuapp.com/";
+    private static final String BASE_URL = "http://localhost:8080/";
 
     private ApiService apiService;
 
@@ -35,7 +34,7 @@ public class ApiProvider {
     }
 
 
-    public void getStockageList(String coordX, String coordY, final ApiListener<ArrayList<Stockage>> listener) {
+    public void getStockageList(Double coordX, Double coordY, final ApiListener<ArrayList<Stockage>> listener) {
         apiService.getStockageList(coordX, coordY).enqueue(new Callback<ArrayList<EStockage>>() {
             @Override
             public void onResponse(Call<ArrayList<EStockage>> call, Response<ArrayList<EStockage>> response) {

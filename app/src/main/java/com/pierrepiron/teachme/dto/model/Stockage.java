@@ -6,14 +6,14 @@ public class Stockage {
 
     private int id_stockage;
     private String adresse;
-    private String coordX;
-    private String coordY;
+    private Double coordX;
+    private Double coordY;
     private String tel;
     private Boolean type;
     private int id_user;
     private ArrayList<Objet> listeObjets;
 
-    public Stockage(int id_stockage, String adresse, String coordX, String coordY, String tel, Boolean type, int id_user) {
+    public Stockage(int id_stockage, String adresse, Double coordX, Double coordY, String tel, Boolean type, int id_user) {
         this.id_stockage = id_stockage;
         this.adresse = adresse;
         this.coordX = coordX;
@@ -23,7 +23,7 @@ public class Stockage {
         this.id_user = id_user;
     }
 
-    public Stockage(int id_stockage, String adresse, String coordX, String coordY, String tel, Boolean type) {
+    public Stockage(int id_stockage, String adresse, Double coordX, Double coordY, String tel, Boolean type) {
         this.id_stockage = id_stockage;
         this.adresse = adresse;
         this.coordX = coordX;
@@ -51,19 +51,19 @@ public class Stockage {
         this.adresse = adresse;
     }
 
-    public String getCoordX() {
+    public Double getCoordX() {
         return coordX;
     }
 
-    public void setCoordX(String coordX) {
+    public void setCoordX(Double coordX) {
         this.coordX = coordX;
     }
 
-    public String getCoordY() {
+    public Double getCoordY() {
         return coordY;
     }
 
-    public void setCoordY(String coordY) {
+    public void setCoordY(Double coordY) {
         this.coordY = coordY;
     }
 

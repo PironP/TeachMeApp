@@ -16,11 +16,12 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiService {
 
 
-    @GET("stockages/{coordX}/{coordY}") Call<ArrayList<EStockage>> getStockageList(@Path("coordX") String coordX, @Path("coordY") String coordY);
+    @GET("deposit") Call<ArrayList<EStockage>> getStockageList(@Query("coX") Double coordX, @Query("coY") Double coordY);
 
     @GET("stockage/{id}/") Call<EStockage> getStockage(@Path("id") String id);
 

@@ -8,14 +8,14 @@ import java.util.ArrayList;
 public class EStockage {
     @SerializedName("id_stockage") private int id_stockage;
     @SerializedName("adresse") private String adresse;
-    @SerializedName("coordX") private String coordX;
-    @SerializedName("coordY") private String coordY;
+    @SerializedName("coordX") private Double coordX;
+    @SerializedName("coordY") private Double coordY;
     @SerializedName("tel") private String tel;
     @SerializedName("type") private Boolean type;
     @SerializedName("id_user") private int id_user;
     @SerializedName("listObject") private ArrayList<EObjet> listeObjets;
 
-    public EStockage(int id_stockage, String adresse, String coordX, String coordY, String tel, Boolean type, ArrayList<EObjet> eObjets) {
+    public EStockage(int id_stockage, String adresse, Double coordX, Double coordY, String tel, Boolean type, ArrayList<EObjet> eObjets) {
         this.id_stockage = id_stockage;
         this.adresse = adresse;
         this.coordX = coordX;
@@ -24,7 +24,7 @@ public class EStockage {
         this.type = type;
     }
 
-    public EStockage(int id_stockage, String adresse, String coordX, String coordY, String tel, Boolean type, int id_user, ArrayList<EObjet> eObjets) {
+    public EStockage(int id_stockage, String adresse, Double coordX, Double coordY, String tel, Boolean type, int id_user, ArrayList<EObjet> eObjets) {
         this.id_stockage = id_stockage;
         this.adresse = adresse;
         this.coordX = coordX;
@@ -54,19 +54,19 @@ public class EStockage {
         this.adresse = adresse;
     }
 
-    public String getCoordX() {
+    public Double getCoordX() {
         return coordX;
     }
 
-    public void setCoordX(String coordX) {
+    public void setCoordX(Double coordX) {
         this.coordX = coordX;
     }
 
-    public String getCoordY() {
+    public Double getCoordY() {
         return coordY;
     }
 
-    public void setCoordY(String coordY) {
+    public void setCoordY(Double coordY) {
         this.coordY = coordY;
     }
 
