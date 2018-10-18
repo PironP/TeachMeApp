@@ -1,9 +1,10 @@
 package com.pierrepiron.teachme.dto.mainApi;
 
-import com.pierrepiron.teachme.dto.model.EStockage;
+import com.pierrepiron.teachme.dto.model.Deposit;
+import com.pierrepiron.teachme.dto.model.EDeposit;
+import com.pierrepiron.teachme.dto.model.EProduct;
 import com.pierrepiron.teachme.dto.model.EUser;
-import com.pierrepiron.teachme.dto.model.Objet;
-import com.pierrepiron.teachme.dto.model.Stockage;
+import com.pierrepiron.teachme.dto.model.Product;
 import com.pierrepiron.teachme.dto.model.User;
 
 import java.util.ArrayList;
@@ -21,9 +22,9 @@ import retrofit2.http.Query;
 public interface ApiService {
 
 
-    @GET("deposit") Call<ArrayList<EStockage>> getStockageList(@Query("coX") Double coordX, @Query("coY") Double coordY);
+    @GET("deposit") Call<ArrayList<EDeposit>> getDepositList(@Query("coX") Double coordX, @Query("coY") Double coordY);
 
-    @GET("stockage/{id}/") Call<EStockage> getStockage(@Path("id") String id);
+    @GET("stockage/{id}/") Call<EProduct> getStockage(@Path("id") String id);
 
     @FormUrlEncoded
     @POST("users/") Call<ResponseBody> postUser(@Field("user") User user);
@@ -32,10 +33,10 @@ public interface ApiService {
     @POST("users/login/") Call<EUser> login(@Field("email") String email, @Field("password") String password);
 
     @FormUrlEncoded
-    @POST("objet/") Call<ResponseBody> postFavorites(@Field("objet") Objet objet);
+    @POST("objet/") Call<ResponseBody> postFavorites(@Field("objet") Product objet);
 
     @FormUrlEncoded
-    @POST("stockage/") Call<ResponseBody> postFavorites(@Field("stockage") Stockage stockage);
+    @POST("stockage/") Call<ResponseBody> postFavorites(@Field("stockage") Deposit deposit);
 
     @DELETE("objet/{id}") Call<ResponseBody> deleteObjet(@Path("id") String id);
 }

@@ -1,8 +1,8 @@
 package com.pierrepiron.teachme.dto.mainApi;
 
-import com.pierrepiron.teachme.dto.mapper.StockageMapper;
-import com.pierrepiron.teachme.dto.model.EStockage;
-import com.pierrepiron.teachme.dto.model.Stockage;
+import com.pierrepiron.teachme.dto.mapper.DepositMapper;
+import com.pierrepiron.teachme.dto.model.Deposit;
+import com.pierrepiron.teachme.dto.model.EDeposit;
 
 import java.util.ArrayList;
 
@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiProvider {
 
-    private static final String BASE_URL = "http://localhost:8080/";
+    private static final String BASE_URL = "https://hackathonteachme.herokuapp.com/";
 
     private ApiService apiService;
 
@@ -34,41 +34,41 @@ public class ApiProvider {
     }
 
 
-    public void getStockageList(Double coordX, Double coordY, final ApiListener<ArrayList<Stockage>> listener) {
-        apiService.getStockageList(coordX, coordY).enqueue(new Callback<ArrayList<EStockage>>() {
+    public void getDepositList(Double coordX, Double coordY, final ApiListener<ArrayList<Deposit>> listener) {
+        apiService.getDepositList(coordX, coordY).enqueue(new Callback<ArrayList<EDeposit>>() {
             @Override
-            public void onResponse(Call<ArrayList<EStockage>> call, Response<ArrayList<EStockage>> response) {
+            public void onResponse(Call<ArrayList<EDeposit>> call, Response<ArrayList<EDeposit>> response) {
                 if (listener != null) {
-                    StockageMapper stockageMapper = new StockageMapper();
-                    ArrayList<Stockage> stockageList = stockageMapper.map(response.body());
+                    DepositMapper depositMapper = new DepositMapper();
+                    ArrayList<Deposit> stockageList = depositMapper.map(response.body());
                     listener.onSuccess(stockageList);
                 }
             }
 
             @Override
-            public void onFailure(Call<ArrayList<EStockage>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<EDeposit>> call, Throwable t) {
                 if (listener != null) listener.onError(t);
             }
         });
     }
 
-    public void getStockage(String id, final ApiListener<Stockage> listener) {
-        apiService.getStockage(id).enqueue(new Callback<EStockage>() {
+    /*public void getStockage(String id, final ApiListener<Deposit> listener) {
+        apiService.getStockage(id).enqueue(new Callback<EDeposit>() {
             @Override
-            public void onResponse(Call<EStockage> call, Response<EStockage> response) {
+            public void onResponse(Call<EDeposit> call, Response<EDeposit> response) {
                 if (listener != null) {
                     StockageMapper stockageMapper = new StockageMapper();
-                    Stockage stockage = stockageMapper.map(response.body());
-                    listener.onSuccess(stockage);
+                    Deposit deposit= stockageMapper.map(response.body());
+                    listener.onSuccess(deposit);
                 }
             }
 
             @Override
-            public void onFailure(Call<EStockage> call, Throwable t) {
+            public void onFailure(Call<EDeposit> call, Throwable t) {
                 if (listener != null) listener.onError(t);
             }
         });
-    }
+    }*/
 /*
     public void getPeople(String id, final ApiListener<People> listener) {
         apiService.getPeople(id).enqueue(new Callback<EPeople>() {

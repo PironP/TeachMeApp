@@ -2,16 +2,16 @@ package com.pierrepiron.teachme.dto.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class EObjet {
+public class EProduct {
     @SerializedName("id_objet") private int id_objet;
     @SerializedName("photo") private String photo;
     @SerializedName("description") private String description;
     @SerializedName("id_stockage") private int id_stockage;
 
-    public EObjet() {
+    public EProduct() {
     }
 
-    public EObjet(int id_objet, String photo, String description, int id_stockage) {
+    public EProduct(int id_objet, String photo, String description, int id_stockage) {
         this.id_objet = id_objet;
         this.photo = photo;
         this.description = description;

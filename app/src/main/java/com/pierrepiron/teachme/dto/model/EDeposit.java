@@ -1,19 +1,30 @@
 package com.pierrepiron.teachme.dto.model;
 
+import com.google.gson.annotations.SerializedName;
+import com.pierrepiron.teachme.dto.mapper.ObjetMapper;
+
 import java.util.ArrayList;
 
-public class Stockage {
+public class EDeposit {
+    @SerializedName("id_stockage") private int id_stockage;
+    @SerializedName("adresse") private String adresse;
+    @SerializedName("coordX") private Double coordX;
+    @SerializedName("coordY") private Double coordY;
+    @SerializedName("tel") private String tel;
+    @SerializedName("type") private Boolean type;
+    @SerializedName("id_user") private int id_user;
+    @SerializedName("listObject") private ArrayList<EProduct> productList;
 
-    private int id_stockage;
-    private String adresse;
-    private Double coordX;
-    private Double coordY;
-    private String tel;
-    private Boolean type;
-    private int id_user;
-    private ArrayList<Objet> listeObjets;
+    public EDeposit(int id_stockage, String adresse, Double coordX, Double coordY, String tel, Boolean type, ArrayList<EProduct> eProducts) {
+        this.id_stockage = id_stockage;
+        this.adresse = adresse;
+        this.coordX = coordX;
+        this.coordY = coordY;
+        this.tel = tel;
+        this.type = type;
+    }
 
-    public Stockage(int id_stockage, String adresse, Double coordX, Double coordY, String tel, Boolean type, int id_user) {
+    public EDeposit(int id_stockage, String adresse, Double coordX, Double coordY, String tel, Boolean type, int id_user, ArrayList<EProduct> eProducts) {
         this.id_stockage = id_stockage;
         this.adresse = adresse;
         this.coordX = coordX;
@@ -21,18 +32,10 @@ public class Stockage {
         this.tel = tel;
         this.type = type;
         this.id_user = id_user;
+        // this.listeObjets = ObjetMapper.ma
     }
 
-    public Stockage(int id_stockage, String adresse, Double coordX, Double coordY, String tel, Boolean type) {
-        this.id_stockage = id_stockage;
-        this.adresse = adresse;
-        this.coordX = coordX;
-        this.coordY = coordY;
-        this.tel = tel;
-        this.type = type;
-    }
-
-    public Stockage() {
+    public EDeposit() {
     }
 
     public int getId_stockage() {
@@ -90,13 +93,4 @@ public class Stockage {
     public void setId_user(int id_user) {
         this.id_user = id_user;
     }
-
-    public ArrayList<Objet> getListeObjets() {
-        return listeObjets;
-    }
-
-    public void setListeObjets(ArrayList<Objet> listeObjets) {
-        this.listeObjets = listeObjets;
-    }
-
 }

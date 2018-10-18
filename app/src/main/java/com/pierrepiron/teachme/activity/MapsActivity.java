@@ -25,7 +25,7 @@ import com.google.android.gms.tasks.Task;
 import com.pierrepiron.teachme.R;
 import com.pierrepiron.teachme.dto.mainApi.ApiListener;
 import com.pierrepiron.teachme.dto.mainApi.ApiProvider;
-import com.pierrepiron.teachme.dto.model.Stockage;
+import com.pierrepiron.teachme.dto.model.Deposit;
 
 import java.util.ArrayList;
 
@@ -40,7 +40,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final int DEFAULT_ZOOM = 17;
     private static final LatLng mDefaultLocation = new LatLng(48.849109, 2.390121);
 
-    private ArrayList<Stockage> stockageList = new ArrayList<>();
+    private ArrayList<Deposit> depositList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,24 +60,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void getStockageList() {
         ApiProvider apiProvider = new ApiProvider();
 
-        apiProvider.getStockageList(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude(), new ApiListener<ArrayList<Stockage>>() {
+        apiProvider.getDepositList(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude(), new ApiListener<ArrayList<Deposit>>() {
             @Override
-            public void onSuccess(ArrayList<Stockage> response) {
-                stockageList = response;
-                Log.d("Call", "success");
-                displayStockage();
+            public void onSuccess(ArrayList<Deposit> response) {
+                depositList = response;
+                addDepositMarker();
             }
 
             @Override
             public void onError(Throwable throwable) {
-                Log.d("Call", "failed");
                 throwable.printStackTrace();
             }
         });
-    }
-
-    public void displayStockage() {
-
     }
 
     public void getLocationPermission() {
@@ -213,6 +207,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
+    }
+
+    public void addDepositMarker() {
+        for (Deposit deposit : depositList) {
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(deposit.getCoordX(), deposit.getCoordY()))
+                    .title(deposit.getAdresse()));
+        }
     }
 
 }
