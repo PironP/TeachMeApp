@@ -24,7 +24,7 @@ public interface ApiService {
 
     @GET("deposit") Call<ArrayList<EDeposit>> getDepositList(@Query("coX") Double coordX, @Query("coY") Double coordY);
 
-    @GET("stockage/{id}/") Call<EProduct> getStockage(@Path("id") String id);
+    @GET("stockage/{id}/") Call<EDeposit> getDeposit(@Path("id") int id);
 
     @FormUrlEncoded
     @POST("users/") Call<ResponseBody> postUser(@Field("user") User user);
@@ -33,10 +33,10 @@ public interface ApiService {
     @POST("users/login/") Call<EUser> login(@Field("email") String email, @Field("password") String password);
 
     @FormUrlEncoded
-    @POST("objet/") Call<ResponseBody> postFavorites(@Field("objet") Product objet);
+    @POST("product/") Call<ResponseBody> postProduct(@Field("objet") Product product);
 
     @FormUrlEncoded
-    @POST("stockage/") Call<ResponseBody> postFavorites(@Field("stockage") Deposit deposit);
+    @POST("deposit/") Call<ResponseBody> postDeposit(@Field("stockage") Deposit deposit);
 
-    @DELETE("objet/{id}") Call<ResponseBody> deleteObjet(@Path("id") String id);
+    @DELETE("product/{id}") Call<ResponseBody> deleteProduct(@Path("id") int id);
 }

@@ -1,6 +1,5 @@
 package com.pierrepiron.teachme.dto.mapper;
 
-
 import com.pierrepiron.teachme.dto.model.Deposit;
 import com.pierrepiron.teachme.dto.model.EDeposit;
 
@@ -13,12 +12,14 @@ public class DepositMapper {
         Deposit deposit= new Deposit();
 
         deposit.setId_stockage(eDeposit.getId_stockage());
+        deposit.setName(eDeposit.getName());
         deposit.setAdresse(eDeposit.getAdresse());
         deposit.setCoordX(eDeposit.getCoordX());
         deposit.setCoordY(eDeposit.getCoordY());
         deposit.setTel(eDeposit.getTel());
         deposit.setType(eDeposit.getType());
-        // stockage.setListeObjets(eStockage.ge);
+        // ProductMapper productMapper = new ProductMapper();
+        // deposit.setListeObjets(productMapper.map(eDeposit.getProductList()));
 
         return deposit;
     }

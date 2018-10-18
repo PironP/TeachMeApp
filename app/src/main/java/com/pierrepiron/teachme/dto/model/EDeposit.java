@@ -1,22 +1,23 @@
 package com.pierrepiron.teachme.dto.model;
 
 import com.google.gson.annotations.SerializedName;
-import com.pierrepiron.teachme.dto.mapper.ObjetMapper;
 
 import java.util.ArrayList;
 
 public class EDeposit {
-    @SerializedName("id_stockage") private int id_stockage;
-    @SerializedName("adresse") private String adresse;
-    @SerializedName("coordX") private Double coordX;
-    @SerializedName("coordY") private Double coordY;
-    @SerializedName("tel") private String tel;
-    @SerializedName("type") private Boolean type;
-    @SerializedName("id_user") private int id_user;
+    @SerializedName("Id_deposit") private int id_stockage;
+    @SerializedName("Name") private String name;
+    @SerializedName("Adresse") private String adresse;
+    @SerializedName("CoordX") private Double coordX;
+    @SerializedName("CoordY") private Double coordY;
+    @SerializedName("Tel") private String tel;
+    @SerializedName("IsAssos") private int type;
+    @SerializedName("admin") private int id_user;
     @SerializedName("listObject") private ArrayList<EProduct> productList;
 
-    public EDeposit(int id_stockage, String adresse, Double coordX, Double coordY, String tel, Boolean type, ArrayList<EProduct> eProducts) {
+    public EDeposit(int id_stockage, String name, String adresse, Double coordX, Double coordY, String tel, int type, ArrayList<EProduct> eProducts) {
         this.id_stockage = id_stockage;
+        this.name = name;
         this.adresse = adresse;
         this.coordX = coordX;
         this.coordY = coordY;
@@ -24,8 +25,9 @@ public class EDeposit {
         this.type = type;
     }
 
-    public EDeposit(int id_stockage, String adresse, Double coordX, Double coordY, String tel, Boolean type, int id_user, ArrayList<EProduct> eProducts) {
+    public EDeposit(int id_stockage, String name, String adresse, Double coordX, Double coordY, String tel, int type, int id_user, ArrayList<EProduct> eProducts) {
         this.id_stockage = id_stockage;
+        this.name = name;
         this.adresse = adresse;
         this.coordX = coordX;
         this.coordY = coordY;
@@ -36,6 +38,14 @@ public class EDeposit {
     }
 
     public EDeposit() {
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getId_stockage() {
@@ -78,11 +88,11 @@ public class EDeposit {
         this.tel = tel;
     }
 
-    public Boolean getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(Boolean type) {
+    public void setType(int type) {
         this.type = type;
     }
 
@@ -92,5 +102,13 @@ public class EDeposit {
 
     public void setId_user(int id_user) {
         this.id_user = id_user;
+    }
+
+    public ArrayList<EProduct> getProductList() {
+        return productList;
+    }
+
+    public void setProductList(ArrayList<EProduct> productList) {
+        this.productList = productList;
     }
 }

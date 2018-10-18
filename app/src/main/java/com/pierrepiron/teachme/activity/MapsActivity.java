@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -19,6 +20,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,7 +31,7 @@ import com.pierrepiron.teachme.dto.model.Deposit;
 
 import java.util.ArrayList;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
     private GoogleMap mMap;
 
@@ -207,14 +209,39 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
+
+        mMap.setOnInfoWindowClickListener(this);
+
+
     }
 
     public void addDepositMarker() {
         for (Deposit deposit : depositList) {
             mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(deposit.getCoordX(), deposit.getCoordY()))
-                    .title(deposit.getAdresse()));
+                    .title(deposit.getName())
+                    .snippet(deposit.getAdresse()));
+
+            /*
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.position(new LatLng(deposit.getCoordX(), deposit.getCoordY()))
+                    .title(deposit.getName())
+                    .snippet(deposit.getAdresse());
+
+            InfoWindowData info = new InfoWindowData();
+            info.setAdress(deposit.getAdresse());
+            // info.setTransport("Reach the site by bus, car and train.");
+
+            CustomInfoWindowAdapter customInfoWindow = new CustomInfoWindowAdapter(this);
+            mMap.setInfoWindowAdapter(customInfoWindow);
+
+            mMap.addMarker(markerOptions);*/
         }
     }
 
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        Toast.makeText(this, "Info window clicked",
+                Toast.LENGTH_SHORT).show();
+    }
 }
