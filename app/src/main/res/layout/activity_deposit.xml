@@ -9,27 +9,34 @@
 
     <ImageView
         android:id="@+id/depositLogo"
-        android:layout_width="match_parent"
+        android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@drawable/logo_teachme_long"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:src="@drawable/logo_teachme"
         />
-
-
-    <TextView
-        android:id="@+id/deposit_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:textAlignment="center"
-        app:layout_constraintTop_toBottomOf="@id/depositLogo"/>
+<!--
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="@id/grid_layout_categorie"
+        app:layout_constraintBottom_toBottomOf="@id/grid_layout_categorie"
+        app:layout_constraintLeft_toLeftOf="@id/grid_layout_categorie"
+        app:layout_constraintRight_toRightOf="@id/grid_layout_categorie"
+        android:background="#fff"
+        />-->
 
     <GridLayout
-        android:layout_height="match_parent"
+        android:id="@+id/grid_layout_categorie"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:background="#fff"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        app:layout_constraintCircleRadius="10dp"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:background="@color/colorPrimary"
+
         app:layout_constraintTop_toBottomOf="@id/depositLogo"
         android:columnCount="3">
 
@@ -39,8 +46,9 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_margin="15dp"
-            android:layout_marginLeft="40dp"
-            android:background="@drawable/book_solid"/>
+            android:layout_marginLeft="35dp"
+            android:background="@drawable/book_solid"
+            android:tag="1"/>
 
 
         <Button
@@ -48,62 +56,73 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_margin="15dp"
-            android:background="@drawable/calculator_solid"/>
+            android:background="@drawable/calculator_solid"
+            android:tag="2"/>
 
 
         <Button
             android:id="@+id/categorie3"
-            android:layout_width="80dp"
+            android:layout_width="100dp"
             android:layout_height="80dp"
             android:layout_margin="15dp"
-            android:background="@drawable/laptop_solid"/>
+            android:background="@drawable/laptop_solid"
+            android:tag="3"/>
 
         <Button
             android:id="@+id/categorie4"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_margin="15dp"
-            android:layout_marginLeft="40dp"
-            android:background="@drawable/cut_solid"/>
+            android:layout_marginLeft="35dp"
+            android:background="@drawable/cut_solid"
+            android:tag="4"/>
 
         <Button
             android:id="@+id/categorie5"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_margin="15dp"
-            android:background="@drawable/music_solid"/>
+            android:background="@drawable/music_solid"
+            android:tag="5"/>
 
         <Button
             android:id="@+id/categorie6"
             android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_height="90dp"
             android:layout_margin="15dp"
-            android:background="@drawable/sticky_note_solid"/>
+            android:background="@drawable/sticky_note_solid"
+            android:tag="6"/>
 
         <Button
             android:id="@+id/categorie7"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_margin="15dp"
-            android:layout_marginLeft="40dp"
-            android:background="@drawable/pencil_ruler_solid"/>
+            android:layout_marginLeft="35dp"
+            android:background="@drawable/pencil_ruler_solid"
+            android:tag="7"/>
 
         <Button
             android:id="@+id/categorie8"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_margin="15dp"
-            android:background="@drawable/suitcase_solid"/>
+            android:background="@drawable/suitcase_solid"
+            android:tag="8"/>
 
         <Button
             android:id="@+id/categorie9"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_margin="15dp"
-            android:background="@drawable/edit_solid"/>
+            android:background="@drawable/compass_solid"
+            android:tag="9"/>
+
 
 
     </GridLayout>
+
+
 
 
 </android.support.constraint.ConstraintLayout>

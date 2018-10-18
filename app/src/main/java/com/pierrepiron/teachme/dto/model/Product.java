@@ -1,6 +1,8 @@
 package com.pierrepiron.teachme.dto.model;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
 
     private int id_product;
     private String photo;

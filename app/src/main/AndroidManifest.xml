@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.pierrepiron.teachme">
 
-
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
@@ -35,7 +34,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.DepositActivity" />
-        <activity android:name=".activity.SearchActivity"></activity>
+        <activity android:name=".activity.SearchActivity" />
+        <activity android:name=".activity.ProductListActivity" />
     </application>
 
 </manifest>

@@ -209,8 +209,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onInfoWindowClick(Marker marker) {
         Deposit selectedDeposit = (Deposit) marker.getTag();
-        Toast.makeText(this, "Info window clicked",
-                Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(this, DepositActivity.class);
         intent.putExtra(DEPOSIT_ID_PARAM, selectedDeposit.getId_stockage());

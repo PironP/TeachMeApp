@@ -1,8 +1,9 @@
 package com.pierrepiron.teachme.dto.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Deposit {
+public class Deposit implements Serializable {
 
     private int id_stockage;
     private String name;
