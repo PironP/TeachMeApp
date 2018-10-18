@@ -1,7 +1,6 @@
 package com.pierrepiron.teachme.dto.model;
 
 import com.google.gson.annotations.SerializedName;
-import com.pierrepiron.teachme.dto.mapper.ProductMapper;
 
 import java.util.ArrayList;
 
@@ -13,6 +12,7 @@ public class EDeposit {
     @SerializedName("CoordY") private Double coordY;
     @SerializedName("Tel") private String tel;
     @SerializedName("IsAssos") private int type;
+    @SerializedName("horaire") private ArrayList<EHoraire> horaire;
     @SerializedName("admin") private int id_user;
     @SerializedName("product") private ArrayList<EProduct> productList;
 
@@ -110,5 +110,13 @@ public class EDeposit {
 
     public void setProductList(ArrayList<EProduct> productList) {
         this.productList = productList;
+    }
+
+    public ArrayList<EHoraire> getHoraire() {
+        return horaire;
+    }
+
+    public void setHoraire(ArrayList<EHoraire> horaire) {
+        this.horaire = horaire;
     }
 }

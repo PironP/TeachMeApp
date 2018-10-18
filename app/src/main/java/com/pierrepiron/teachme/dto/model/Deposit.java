@@ -2,6 +2,7 @@ package com.pierrepiron.teachme.dto.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Dictionary;
 
 public class Deposit implements Serializable {
 
@@ -11,6 +12,7 @@ public class Deposit implements Serializable {
     private Double coordX;
     private Double coordY;
     private String tel;
+    private ArrayList<Horaire> horaire;
     private int type;
     private int id_user;
     private ArrayList<Product> productList;
@@ -111,7 +113,11 @@ public class Deposit implements Serializable {
         this.id_user = id_user;
     }
 
+    public ArrayList<Horaire> getHoraire() {
+        return horaire;
+    }
 
-
-
+    public void setHoraire(ArrayList<Horaire> horaire) {
+        this.horaire = horaire;
+    }
 }

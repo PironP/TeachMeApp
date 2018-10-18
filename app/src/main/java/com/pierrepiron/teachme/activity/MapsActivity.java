@@ -200,7 +200,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Marker amarker = mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(deposit.getCoordX(), deposit.getCoordY()))
                     .title(deposit.getName())
-                    .snippet(deposit.getAdresse()));
+                    .snippet(deposit.getAdresse() + '\n' + deposit));
             amarker.setTag(deposit);
 
         }

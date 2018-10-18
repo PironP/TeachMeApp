@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 
+import com.google.gson.Gson;
 import com.pierrepiron.teachme.R;
 import com.pierrepiron.teachme.dto.mainApi.ApiListener;
 import com.pierrepiron.teachme.dto.mainApi.ApiProvider;
@@ -66,7 +67,7 @@ public class DepositActivity extends AppCompatActivity {
 
     @OnClick({ R.id.categorie1, R.id.categorie2, R.id.categorie3, R.id.categorie4, R.id.categorie5, R.id.categorie6, R.id.categorie7, R.id.categorie8, R.id.categorie9 })
     public void onCategorieClicked(Button button) {
-        Intent intent = new Intent();
+        Intent intent = new Intent(this, ProductListActivity.class);
         String categorieName = "";
         switch (button.getTag().toString()) {
             case ("1") : {
@@ -106,8 +107,12 @@ public class DepositActivity extends AppCompatActivity {
             }
             break;
         }
-        intent.putExtra(OBJECT_PARAM, deposit);
-        // intent.putExtra(CATEGORIE_NAME_PARAM, categorieName);
+
+        Gson gson = new Gson();
+        String depositJson = gson.toJson(deposit);
+
+        intent.putExtra(OBJECT_PARAM, depositJson);
+        intent.putExtra(CATEGORIE_NAME_PARAM, categorieName);
         startActivity(intent);
     }
 

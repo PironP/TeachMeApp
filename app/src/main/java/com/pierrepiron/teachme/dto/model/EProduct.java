@@ -8,7 +8,7 @@ public class EProduct {
     @SerializedName("Description") private String description;
     @SerializedName("Id_Stockage") private int id_stockage;
     @SerializedName("Id_Categorie") private int id_categorie;
-    @SerializedName("Categorie") private String categorie;
+    @SerializedName("categorie") private String categorie;
 
     public EProduct() {
     }
