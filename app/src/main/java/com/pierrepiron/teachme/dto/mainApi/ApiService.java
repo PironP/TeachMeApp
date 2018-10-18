@@ -7,6 +7,7 @@ import com.pierrepiron.teachme.dto.model.EUser;
 import com.pierrepiron.teachme.dto.model.Product;
 import com.pierrepiron.teachme.dto.model.User;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import okhttp3.ResponseBody;
@@ -24,7 +25,9 @@ public interface ApiService {
 
     @GET("deposit") Call<ArrayList<EDeposit>> getDepositList(@Query("coX") Double coordX, @Query("coY") Double coordY);
 
-    @GET("stockage/{id}/") Call<EDeposit> getDeposit(@Path("id") int id);
+    @GET("deposit/byId") Call<EDeposit> getDeposit(@Query("id") int id);
+
+    @GET("product") Call<ArrayList<EProduct>> searchProduct(@Query("search") String productName);
 
     @FormUrlEncoded
     @POST("users/") Call<ResponseBody> postUser(@Field("user") User user);

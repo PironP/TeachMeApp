@@ -18,8 +18,10 @@ public class DepositMapper {
         deposit.setCoordY(eDeposit.getCoordY());
         deposit.setTel(eDeposit.getTel());
         deposit.setType(eDeposit.getType());
-        // ProductMapper productMapper = new ProductMapper();
-        // deposit.setListeObjets(productMapper.map(eDeposit.getProductList()));
+        if (eDeposit.getProductList() != null) {
+            ProductMapper productMapper = new ProductMapper();
+            deposit.setProductList(productMapper.map(eDeposit.getProductList()));
+        }
 
         return deposit;
     }

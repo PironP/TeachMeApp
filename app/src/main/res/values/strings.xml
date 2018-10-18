@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">TeachMe</string>
     <string name="title_activity_maps">Map</string>
+    <string name="rechercher">Rechercher</string>
+    <string name="noResult">Aucun Résultat</string>
+    <string name="close">Fermer</string>
 </resources>

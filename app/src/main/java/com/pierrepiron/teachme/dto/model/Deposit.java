@@ -110,12 +110,7 @@ public class Deposit {
         this.id_user = id_user;
     }
 
-    public ArrayList<Product> getListeObjets() {
-        return productList;
-    }
 
-    public void setListeObjets(ArrayList<Product> productList) {
-        this.productList = productList;
-    }
+
 
 }

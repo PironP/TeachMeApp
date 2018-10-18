@@ -1,8 +1,10 @@
 package com.pierrepiron.teachme.dto.mainApi;
 
 import com.pierrepiron.teachme.dto.mapper.DepositMapper;
+import com.pierrepiron.teachme.dto.mapper.ProductMapper;
 import com.pierrepiron.teachme.dto.model.Deposit;
 import com.pierrepiron.teachme.dto.model.EDeposit;
+import com.pierrepiron.teachme.dto.model.EProduct;
 import com.pierrepiron.teachme.dto.model.Product;
 
 import java.util.ArrayList;
@@ -67,6 +69,24 @@ public class ApiProvider {
 
             @Override
             public void onFailure(Call<EDeposit> call, Throwable t) {
+                if (listener != null) listener.onError(t);
+            }
+        });
+    }
+
+    public void searchProduct(String productName, final ApiListener<ArrayList<Product>> listener) {
+        apiService.searchProduct(productName).enqueue(new Callback<ArrayList<EProduct>>() {
+            @Override
+            public void onResponse(Call<ArrayList<EProduct>> call, Response<ArrayList<EProduct>> response) {
+                if (listener != null) {
+                    ProductMapper productMapper = new ProductMapper();
+                    ArrayList<Product> productList = productMapper.map(response.body());
+                    listener.onSuccess(productList);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<EProduct>> call, Throwable t) {
                 if (listener != null) listener.onError(t);
             }
         });

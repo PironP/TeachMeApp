@@ -1,5 +1,6 @@
 package com.pierrepiron.teachme.activity;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.support.annotation.NonNull;
@@ -8,13 +9,10 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -31,6 +29,9 @@ import com.pierrepiron.teachme.dto.model.Deposit;
 
 import java.util.ArrayList;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
     private GoogleMap mMap;
@@ -42,12 +43,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final int DEFAULT_ZOOM = 17;
     private static final LatLng mDefaultLocation = new LatLng(48.849109, 2.390121);
 
+
+    public static final String DEPOSIT_ID_PARAM = "DEPOSIT_ID_PARAM";
+
     private ArrayList<Deposit> depositList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        ButterKnife.bind(this);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -175,32 +181,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap map) {
         mMap = map;
 
-        // Use a custom info window adapter to handle multiple lines of text in the
-        // info window contents.
-        /*mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-
-            @Override
-            // Return null here, so that getInfoContents() is called next.
-            public View getInfoWindow(Marker arg0) {
-                return null;
-            }
-
-            @Override
-            public View getInfoContents(Marker marker) {
-                // Inflate the layouts for the info window, title and snippet.
-                View infoWindow = getLayoutInflater().inflate(R.layout.custom_info_contents,
-                        (FrameLayout) findViewById(R.id.map), false);
-
-                TextView title = ((TextView) infoWindow.findViewById(R.id.title));
-                title.setText(marker.getTitle());
-
-                TextView snippet = ((TextView) infoWindow.findViewById(R.id.snippet));
-                snippet.setText(marker.getSnippet());
-
-                return infoWindow;
-            }
-        });*/
-
         // Prompt the user for permission.
         getLocationPermission();
 
@@ -217,31 +197,29 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void addDepositMarker() {
         for (Deposit deposit : depositList) {
-            mMap.addMarker(new MarkerOptions()
+            Marker amarker = mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(deposit.getCoordX(), deposit.getCoordY()))
                     .title(deposit.getName())
                     .snippet(deposit.getAdresse()));
+            amarker.setTag(deposit);
 
-            /*
-            MarkerOptions markerOptions = new MarkerOptions();
-            markerOptions.position(new LatLng(deposit.getCoordX(), deposit.getCoordY()))
-                    .title(deposit.getName())
-                    .snippet(deposit.getAdresse());
-
-            InfoWindowData info = new InfoWindowData();
-            info.setAdress(deposit.getAdresse());
-            // info.setTransport("Reach the site by bus, car and train.");
-
-            CustomInfoWindowAdapter customInfoWindow = new CustomInfoWindowAdapter(this);
-            mMap.setInfoWindowAdapter(customInfoWindow);
-
-            mMap.addMarker(markerOptions);*/
         }
     }
 
     @Override
     public void onInfoWindowClick(Marker marker) {
+        Deposit selectedDeposit = (Deposit) marker.getTag();
         Toast.makeText(this, "Info window clicked",
                 Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(this, DepositActivity.class);
+        intent.putExtra(DEPOSIT_ID_PARAM, selectedDeposit.getId_stockage());
+        startActivity(intent);
+
+    }
+
+    @OnClick(R.id.search_button)
+    public void onSearchButtonClicked() {
+        startActivity(new Intent(this, SearchActivity.class));
     }
 }

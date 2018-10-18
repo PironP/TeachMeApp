@@ -10,10 +10,12 @@ public class ProductMapper {
     public Product map(EProduct eProduct) {
         Product objet = new Product();
 
-        objet.setId_objet(eProduct.getId_objet());
+        objet.setId_product(eProduct.getId_product());
         objet.setDescription(eProduct.getDescription());
         objet.setPhoto(eProduct.getPhoto());
         objet.setId_stockage(eProduct.getId_stockage());
+        objet.setId_categorie(eProduct.getId_categorie());
+        objet.setCategorie(eProduct.getCategorie());
 
         return objet;
     }

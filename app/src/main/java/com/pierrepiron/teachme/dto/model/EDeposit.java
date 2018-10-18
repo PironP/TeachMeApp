@@ -1,6 +1,7 @@
 package com.pierrepiron.teachme.dto.model;
 
 import com.google.gson.annotations.SerializedName;
+import com.pierrepiron.teachme.dto.mapper.ProductMapper;
 
 import java.util.ArrayList;
 
@@ -13,7 +14,7 @@ public class EDeposit {
     @SerializedName("Tel") private String tel;
     @SerializedName("IsAssos") private int type;
     @SerializedName("admin") private int id_user;
-    @SerializedName("listObject") private ArrayList<EProduct> productList;
+    @SerializedName("product") private ArrayList<EProduct> productList;
 
     public EDeposit(int id_stockage, String name, String adresse, Double coordX, Double coordY, String tel, int type, ArrayList<EProduct> eProducts) {
         this.id_stockage = id_stockage;
@@ -34,7 +35,6 @@ public class EDeposit {
         this.tel = tel;
         this.type = type;
         this.id_user = id_user;
-        // this.listeObjets = ObjetMapper.ma
     }
 
     public EDeposit() {
