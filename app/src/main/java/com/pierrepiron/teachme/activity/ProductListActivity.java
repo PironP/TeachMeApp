@@ -6,10 +6,14 @@ import android.os.Bundle;
 import com.google.gson.Gson;
 import com.pierrepiron.teachme.R;
 import com.pierrepiron.teachme.dto.model.Deposit;
+import com.pierrepiron.teachme.dto.model.Product;
+
+import java.util.ArrayList;
 
 public class ProductListActivity extends AppCompatActivity {
 
-    private Deposit deposit;
+    private ArrayList<Product> productListFiltered;
+    private String categorie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,8 +22,19 @@ public class ProductListActivity extends AppCompatActivity {
 
         String depositJson = getIntent().getStringExtra(DepositActivity.OBJECT_PARAM);
         Gson gson = new Gson();
-        deposit = gson.fromJson(depositJson, Deposit.class);
+        ArrayList<Product> productList = gson.fromJson(depositJson, ArrayList.class);
 
-        String categorie = getIntent().getStringExtra(DepositActivity.CATEGORIE_NAME_PARAM);
+        productListFiltered = filterProductForCurrentCategorie(productList);
+        categorie = getIntent().getStringExtra(DepositActivity.CATEGORIE_NAME_PARAM);
+    }
+
+    private ArrayList<Product> filterProductForCurrentCategorie(ArrayList<Product> productList) {
+        ArrayList<Product> list = new ArrayList<>();
+        for (Product product : productList) {
+            if (product.getCategorie() == categorie) {
+                list.add(product);
+            }
+        }
+        return list;
     }
 }
