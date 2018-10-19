@@ -21,8 +21,10 @@
         android:id="@+id/product_item_categorie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
         android:paddingLeft="20dp"
         app:layout_constraintLeft_toRightOf="@id/product_item_name"
+        tools:layout_editor_absoluteY="3dp"
         tools:text="@tools:sample/lorem" />
 
     <View
