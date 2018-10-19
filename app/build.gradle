@@ -35,6 +35,7 @@ dependencies {
 
     //Butterknife http://jakewharton.github.io/butterknife/
     implementation "com.jakewharton:butterknife:$project.butterKnifeVersion"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     annotationProcessor "com.jakewharton:butterknife-compiler:$project.butterKnifeVersion"
 
     //Retrofit https://github.com/square/retrofit

@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">TeachMe</string>
     <string name="title_activity_maps">Map</string>
+    <string name="rechercher">Rechercher</string>
+    <string name="noResult">Aucun Résultat</string>
+    <string name="close">Fermer</string>
+    <string name="numberPicker">Select a number...</string>
+    <string name="connectAdmin">Connection gestionnaire</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="connection">Connection</string>
 </resources>

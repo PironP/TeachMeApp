@@ -1,20 +1,25 @@
 package com.pierrepiron.teachme.dto.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Dictionary;
 
-public class Stockage {
+public class Deposit implements Serializable {
 
     private int id_stockage;
+    private String name;
     private String adresse;
     private Double coordX;
     private Double coordY;
     private String tel;
-    private Boolean type;
+    private ArrayList<Horaire> horaire;
+    private int type;
     private int id_user;
-    private ArrayList<Objet> listeObjets;
+    private ArrayList<Product> productList;
 
-    public Stockage(int id_stockage, String adresse, Double coordX, Double coordY, String tel, Boolean type, int id_user) {
+    public Deposit(int id_stockage, String name, String adresse, Double coordX, Double coordY, String tel, int type, int id_user) {
         this.id_stockage = id_stockage;
+        this.name = name;
         this.adresse = adresse;
         this.coordX = coordX;
         this.coordY = coordY;
@@ -23,8 +28,9 @@ public class Stockage {
         this.id_user = id_user;
     }
 
-    public Stockage(int id_stockage, String adresse, Double coordX, Double coordY, String tel, Boolean type) {
+    public Deposit(int id_stockage, String name, String adresse, Double coordX, Double coordY, String tel, int type) {
         this.id_stockage = id_stockage;
+        this.name = name;
         this.adresse = adresse;
         this.coordX = coordX;
         this.coordY = coordY;
@@ -32,7 +38,23 @@ public class Stockage {
         this.type = type;
     }
 
-    public Stockage() {
+    public Deposit() {
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public ArrayList<Product> getProductList() {
+        return productList;
+    }
+
+    public void setProductList(ArrayList<Product> productList) {
+        this.productList = productList;
     }
 
     public int getId_stockage() {
@@ -75,11 +97,11 @@ public class Stockage {
         this.tel = tel;
     }
 
-    public Boolean getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(Boolean type) {
+    public void setType(int type) {
         this.type = type;
     }
 
@@ -91,12 +113,11 @@ public class Stockage {
         this.id_user = id_user;
     }
 
-    public ArrayList<Objet> getListeObjets() {
-        return listeObjets;
+    public ArrayList<Horaire> getHoraire() {
+        return horaire;
     }
 
-    public void setListeObjets(ArrayList<Objet> listeObjets) {
-        this.listeObjets = listeObjets;
+    public void setHoraire(ArrayList<Horaire> horaire) {
+        this.horaire = horaire;
     }
-
 }

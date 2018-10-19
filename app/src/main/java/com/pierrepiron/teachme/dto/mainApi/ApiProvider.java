@@ -1,12 +1,22 @@
 package com.pierrepiron.teachme.dto.mainApi;
 
-import com.pierrepiron.teachme.dto.mapper.StockageMapper;
-import com.pierrepiron.teachme.dto.model.EStockage;
-import com.pierrepiron.teachme.dto.model.Stockage;
+import com.pierrepiron.teachme.dto.mapper.CurrentUserMapper;
+import com.pierrepiron.teachme.dto.mapper.DepositMapper;
+import com.pierrepiron.teachme.dto.mapper.ProductMapper;
+import com.pierrepiron.teachme.dto.mapper.UserMapper;
+import com.pierrepiron.teachme.dto.model.CurrentUser;
+import com.pierrepiron.teachme.dto.model.Deposit;
+import com.pierrepiron.teachme.dto.model.ECurrentUser;
+import com.pierrepiron.teachme.dto.model.EDeposit;
+import com.pierrepiron.teachme.dto.model.EProduct;
+import com.pierrepiron.teachme.dto.model.EUser;
+import com.pierrepiron.teachme.dto.model.Product;
+import com.pierrepiron.teachme.dto.model.User;
 
 import java.util.ArrayList;
 
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -15,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiProvider {
 
-    private static final String BASE_URL = "http://localhost:8080/";
+    private static final String BASE_URL = "https://hackathonteachme.herokuapp.com/";
 
     private ApiService apiService;
 
@@ -34,97 +44,64 @@ public class ApiProvider {
     }
 
 
-    public void getStockageList(Double coordX, Double coordY, final ApiListener<ArrayList<Stockage>> listener) {
-        apiService.getStockageList(coordX, coordY).enqueue(new Callback<ArrayList<EStockage>>() {
+    public void getDepositList(Double coordX, Double coordY, final ApiListener<ArrayList<Deposit>> listener) {
+        apiService.getDepositList(coordX, coordY).enqueue(new Callback<ArrayList<EDeposit>>() {
             @Override
-            public void onResponse(Call<ArrayList<EStockage>> call, Response<ArrayList<EStockage>> response) {
+            public void onResponse(Call<ArrayList<EDeposit>> call, Response<ArrayList<EDeposit>> response) {
                 if (listener != null) {
-                    StockageMapper stockageMapper = new StockageMapper();
-                    ArrayList<Stockage> stockageList = stockageMapper.map(response.body());
-                    listener.onSuccess(stockageList);
+                    DepositMapper depositMapper = new DepositMapper();
+                    ArrayList<Deposit> depositList = depositMapper.map(response.body());
+                    listener.onSuccess(depositList);
                 }
             }
 
             @Override
-            public void onFailure(Call<ArrayList<EStockage>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<EDeposit>> call, Throwable t) {
                 if (listener != null) listener.onError(t);
             }
         });
     }
 
-    public void getStockage(String id, final ApiListener<Stockage> listener) {
-        apiService.getStockage(id).enqueue(new Callback<EStockage>() {
+    public void getDeposit(int id, final ApiListener<Deposit> listener) {
+        apiService.getDeposit(id).enqueue(new Callback<EDeposit>() {
             @Override
-            public void onResponse(Call<EStockage> call, Response<EStockage> response) {
+            public void onResponse(Call<EDeposit> call, Response<EDeposit> response) {
                 if (listener != null) {
-                    StockageMapper stockageMapper = new StockageMapper();
-                    Stockage stockage = stockageMapper.map(response.body());
-                    listener.onSuccess(stockage);
+                    DepositMapper depositMapper = new DepositMapper();
+                    Deposit deposit = depositMapper.map(response.body());
+                    listener.onSuccess(deposit);
                 }
             }
 
             @Override
-            public void onFailure(Call<EStockage> call, Throwable t) {
-                if (listener != null) listener.onError(t);
-            }
-        });
-    }
-/*
-    public void getPeople(String id, final ApiListener<People> listener) {
-        apiService.getPeople(id).enqueue(new Callback<EPeople>() {
-            @Override public void onResponse(Call<EPeople> call, Response<EPeople> response) {
-                if (listener != null) {
-                    PeopleMapper peopleMapper = new PeopleMapper();
-                    People people = peopleMapper.map(response.body());
-                    listener.onSuccess(people);
-                }
-            }
-
-            @Override public void onFailure(Call<EPeople> call, Throwable t) {
+            public void onFailure(Call<EDeposit> call, Throwable t) {
                 if (listener != null) listener.onError(t);
             }
         });
     }
 
-    public void getRandomQuote(final ApiListener<Quote> listener) {
-        apiService.getRandomQuote().enqueue(new Callback<EQuote>() {
+    public void searchProduct(String productName, final ApiListener<ArrayList<Product>> listener) {
+        apiService.searchProduct(productName).enqueue(new Callback<ArrayList<EProduct>>() {
             @Override
-            public void onResponse(Call<EQuote> call, Response<EQuote> response) {
+            public void onResponse(Call<ArrayList<EProduct>> call, Response<ArrayList<EProduct>> response) {
                 if (listener != null) {
-                    QuoteMapper quoteMapper= new QuoteMapper();
-                    Quote quote = quoteMapper.map(response.body());
-                    listener.onSuccess(quote);
+                    ProductMapper productMapper = new ProductMapper();
+                    ArrayList<Product> productList = productMapper.map(response.body());
+                    listener.onSuccess(productList);
                 }
             }
 
             @Override
-            public void onFailure(Call<EQuote> call, Throwable t) {
+            public void onFailure(Call<ArrayList<EProduct>> call, Throwable t) {
                 if (listener != null) listener.onError(t);
             }
         });
     }
 
-    public void getFavorites(String userId, final ApiListener<ArrayList<Favorite>> listener) {
-        apiService.getFavorites(userId).enqueue(new Callback<ArrayList<EFavorite>>() {
-            @Override
-            public void onResponse(Call<ArrayList<EFavorite>> call, Response<ArrayList<EFavorite>> response) {
-                if (listener != null) {
-                    FavoriteMapper favoriteMapper = new FavoriteMapper();
-                    ArrayList<Favorite> favoritesList = favoriteMapper.map(response.body());
-                    listener.onSuccess(favoritesList);
-                }
-            }
 
-            @Override
-            public void onFailure(Call<ArrayList<EFavorite>> call, Throwable t) {
-                if (listener != null) listener.onError(t);
-            }
-        });
-    }
+    public void postProduct(Product product, final ApiListener<Integer> listener) {
 
-    public void addFavorite(String userId, String quoteId, final ApiListener<Integer> listener) {
-
-        apiService.postFavorites(userId, quoteId).enqueue(new Callback<ResponseBody>() {
+        apiService.postProduct(product).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (listener != null) {
@@ -139,6 +116,30 @@ public class ApiProvider {
         });
     }
 
+
+    public void login(String email, String password, final ApiListener<CurrentUser> listener) {
+        apiService.login(email, password).enqueue(new Callback<ECurrentUser>() {
+            @Override
+            public void onResponse(Call<ECurrentUser> call, Response<ECurrentUser> response) {
+                if (listener != null) {
+                    if (response.code() == 200) {
+                        CurrentUserMapper currentUserMapper = new CurrentUserMapper();
+                        currentUserMapper.map(response.body());
+                        listener.onSuccess(CurrentUser.getInstance());
+
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ECurrentUser> call, Throwable t) {
+                if (listener != null) listener.onError(t);
+            }
+        });
+    }
+
+/*
     public void signup(String email, String password, final ApiListener<Integer> listener) {
         apiService.postUser(email, password).enqueue(new Callback<ResponseBody>() {
             @Override
@@ -155,28 +156,9 @@ public class ApiProvider {
         });
     }
 
-    public void login(String email, String password, final ApiListener<User> listener) {
-        apiService.login(email, password).enqueue(new Callback<EUser>() {
-            @Override
-            public void onResponse(Call<EUser> call, Response<EUser> response) {
-                if (listener != null) {
-                    if (response.code() == 200) {
-                        UserMapper userMapper = new UserMapper();
-                        User user = userMapper.map(response.body());
-                    }
-                    listener.onSuccess(User.getInstance());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<EUser> call, Throwable t) {
-                if (listener != null) listener.onError(t);
-            }
-        });
-    }
-
-    public void deleteFavorite(String idFavorite, final ApiListener<Integer> listener) {
-        apiService.deleteFavorite(idFavorite).enqueue(new Callback<ResponseBody>() {
+*/
+    public void deleteProduct(int id_product, final ApiListener<Integer> listener) {
+        apiService.deleteProduct(id_product).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (listener != null) {
@@ -190,5 +172,5 @@ public class ApiProvider {
             }
         });
     }
-*/
+
 }

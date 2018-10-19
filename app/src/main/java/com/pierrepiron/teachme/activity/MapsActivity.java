@@ -1,5 +1,6 @@
 package com.pierrepiron.teachme.activity;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.support.annotation.NonNull;
@@ -8,28 +9,35 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.places.Places;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.pierrepiron.teachme.R;
 import com.pierrepiron.teachme.dto.mainApi.ApiListener;
 import com.pierrepiron.teachme.dto.mainApi.ApiProvider;
-import com.pierrepiron.teachme.dto.model.Stockage;
+import com.pierrepiron.teachme.dto.model.Deposit;
 
 import java.util.ArrayList;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
     private GoogleMap mMap;
 
@@ -37,15 +45,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private boolean mLocationPermissionGranted = false;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private Location mLastKnownLocation;
-    private static final int DEFAULT_ZOOM = 17;
+    private static final int DEFAULT_ZOOM = 16;
     private static final LatLng mDefaultLocation = new LatLng(48.849109, 2.390121);
 
-    private ArrayList<Stockage> stockageList = new ArrayList<>();
+
+    public static final String DEPOSIT_ID_PARAM = "DEPOSIT_ID_PARAM";
+
+    private ArrayList<Deposit> depositList = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        ButterKnife.bind(this);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -60,24 +74,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void getStockageList() {
         ApiProvider apiProvider = new ApiProvider();
 
-        apiProvider.getStockageList(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude(), new ApiListener<ArrayList<Stockage>>() {
+        apiProvider.getDepositList(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude(), new ApiListener<ArrayList<Deposit>>() {
             @Override
-            public void onSuccess(ArrayList<Stockage> response) {
-                stockageList = response;
-                Log.d("Call", "success");
-                displayStockage();
+            public void onSuccess(ArrayList<Deposit> response) {
+                depositList = response;
+                addDepositMarker();
             }
 
             @Override
             public void onError(Throwable throwable) {
-                Log.d("Call", "failed");
                 throwable.printStackTrace();
             }
         });
-    }
-
-    public void displayStockage() {
-
     }
 
     public void getLocationPermission() {
@@ -179,32 +187,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap map) {
         mMap = map;
 
-        // Use a custom info window adapter to handle multiple lines of text in the
-        // info window contents.
-        /*mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-
-            @Override
-            // Return null here, so that getInfoContents() is called next.
-            public View getInfoWindow(Marker arg0) {
-                return null;
-            }
-
-            @Override
-            public View getInfoContents(Marker marker) {
-                // Inflate the layouts for the info window, title and snippet.
-                View infoWindow = getLayoutInflater().inflate(R.layout.custom_info_contents,
-                        (FrameLayout) findViewById(R.id.map), false);
-
-                TextView title = ((TextView) infoWindow.findViewById(R.id.title));
-                title.setText(marker.getTitle());
-
-                TextView snippet = ((TextView) infoWindow.findViewById(R.id.snippet));
-                snippet.setText(marker.getSnippet());
-
-                return infoWindow;
-            }
-        });*/
-
         // Prompt the user for permission.
         getLocationPermission();
 
@@ -213,6 +195,75 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
+
+
+        mMap.setInfoWindowAdapter(new CustomInfoWindow());
+        mMap.setOnInfoWindowClickListener(this);
+
+
     }
 
+    public void addDepositMarker() {
+        for (Deposit deposit : depositList) {
+            Marker amarker = mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(deposit.getCoordX(), deposit.getCoordY()))
+                    .title(deposit.getName())
+                    .snippet(deposit.getAdresse() + '\n' + deposit.getHoraire().get(0).getMonday()));
+            amarker.setTag(deposit);
+
+        }
+    }
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        Deposit selectedDeposit = (Deposit) marker.getTag();
+
+        Intent intent = new Intent(this, DepositActivity.class);
+        intent.putExtra(DEPOSIT_ID_PARAM, selectedDeposit.getId_stockage());
+        startActivity(intent);
+
+    }
+
+    @OnClick(R.id.search_button)
+    public void onSearchButtonClicked() {
+        startActivity(new Intent(this, SearchActivity.class));
+    }
+
+
+    class CustomInfoWindow implements GoogleMap.InfoWindowAdapter {
+
+        private final View myContentsView;
+
+        CustomInfoWindow(){
+            myContentsView = getLayoutInflater().inflate(R.layout.custom_info_window, null);
+        }
+
+        @Override
+        public View getInfoContents(Marker marker) {
+
+            TextView infoTitle = ((TextView)myContentsView.findViewById(R.id.info_window_title));
+            infoTitle.setText(marker.getTitle());
+            TextView infoSnipper = ((TextView)myContentsView.findViewById(R.id.info_window_snippet));
+            infoSnipper.setText(marker.getSnippet());
+
+            return myContentsView;
+        }
+
+        @Override
+        public View getInfoWindow(Marker marker) {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+    }
+
+
+    public void onZoom(View view){
+        if(view.getId()==R.id.zoomin){
+            mMap.animateCamera(CameraUpdateFactory.zoomIn());
+        }
+        if(view.getId()==R.id.zoomout){
+            mMap.animateCamera(CameraUpdateFactory.zoomOut());
+        }
+    }
 }
