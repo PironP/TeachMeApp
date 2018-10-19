@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
@@ -9,21 +10,19 @@
 
     <TextView
         android:id="@+id/product_list_title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="15dp"
+        android:textAlignment="center"
         android:textSize="25sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/product_recycler_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         tools:listitem="@layout/category_item"
-        app:layout_constraintTop_toBottomOf="@id/product_list_title"
         />
 
 
@@ -40,4 +39,4 @@
         android:textStyle="bold"
         android:text="@string/noResult"/>
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>
