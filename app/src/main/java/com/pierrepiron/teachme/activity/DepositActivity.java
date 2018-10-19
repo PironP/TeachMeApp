@@ -154,4 +154,9 @@ public class DepositActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @OnClick(R.id.deposit_login)
+    public void loginButtonPressed() {
+        startActivity(new Intent(this, LoginActivity.class));
+    }
+
 }

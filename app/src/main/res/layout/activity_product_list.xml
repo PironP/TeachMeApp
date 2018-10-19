@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
+    android:layout_gravity="bottom"
     tools:context=".activity.ProductListActivity">
 
     <TextView
@@ -17,6 +18,18 @@
         android:textSize="25sp"
         android:textStyle="bold" />
 
+    <TextView
+        android:id="@+id/product_list_no_result_label"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="@tools:sample/lorem"
+        android:textAlignment="center"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:text="@string/noResult"/>
+
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/product_recycler_list"
@@ -24,19 +37,5 @@
         android:layout_height="match_parent"
         tools:listitem="@layout/category_item"
         />
-
-
-    <TextView
-        android:id="@+id/product_list_no_result_label"
-        android:visibility="invisible"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:text="@string/noResult"/>
 
 </LinearLayout>

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ import com.pierrepiron.teachme.dto.model.Deposit;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -43,13 +45,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private boolean mLocationPermissionGranted = false;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private Location mLastKnownLocation;
-    private static final int DEFAULT_ZOOM = 17;
+    private static final int DEFAULT_ZOOM = 16;
     private static final LatLng mDefaultLocation = new LatLng(48.849109, 2.390121);
 
 
     public static final String DEPOSIT_ID_PARAM = "DEPOSIT_ID_PARAM";
 
     private ArrayList<Deposit> depositList = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -226,6 +229,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         startActivity(new Intent(this, SearchActivity.class));
     }
 
+
     class CustomInfoWindow implements GoogleMap.InfoWindowAdapter {
 
         private final View myContentsView;
@@ -252,6 +256,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
     }
+
+
     public void onZoom(View view){
         if(view.getId()==R.id.zoomin){
             mMap.animateCamera(CameraUpdateFactory.zoomIn());

@@ -32,7 +32,7 @@
     <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/grid_layout_categorie"
         android:layout_width="354dp"
-        android:layout_height="440dp"
+        android:layout_height="420dp"
         android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@id/depositLogo"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -249,6 +249,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="top" />
+
+
+    <Button
+        android:id="@+id/deposit_login"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="@string/connectAdmin"
+        android:textAlignment="center"
+        android:background="@color/colorPrimary"
+        app:layout_constraintTop_toBottomOf="@id/grid_layout_categorie"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="20dp"
+        android:shadowColor="@color/colorPrimary"
+        />
 
 
 </android.support.constraint.ConstraintLayout>
