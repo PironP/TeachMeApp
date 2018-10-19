@@ -1,11 +1,17 @@
 package com.pierrepiron.teachme.dto.mainApi;
 
+import com.pierrepiron.teachme.dto.mapper.CurrentUserMapper;
 import com.pierrepiron.teachme.dto.mapper.DepositMapper;
 import com.pierrepiron.teachme.dto.mapper.ProductMapper;
+import com.pierrepiron.teachme.dto.mapper.UserMapper;
+import com.pierrepiron.teachme.dto.model.CurrentUser;
 import com.pierrepiron.teachme.dto.model.Deposit;
+import com.pierrepiron.teachme.dto.model.ECurrentUser;
 import com.pierrepiron.teachme.dto.model.EDeposit;
 import com.pierrepiron.teachme.dto.model.EProduct;
+import com.pierrepiron.teachme.dto.model.EUser;
 import com.pierrepiron.teachme.dto.model.Product;
+import com.pierrepiron.teachme.dto.model.User;
 
 import java.util.ArrayList;
 
@@ -110,6 +116,29 @@ public class ApiProvider {
         });
     }
 
+
+    public void login(String email, String password, final ApiListener<CurrentUser> listener) {
+        apiService.login(email, password).enqueue(new Callback<ECurrentUser>() {
+            @Override
+            public void onResponse(Call<ECurrentUser> call, Response<ECurrentUser> response) {
+                if (listener != null) {
+                    if (response.code() == 200) {
+                        CurrentUserMapper currentUserMapper = new CurrentUserMapper();
+                        currentUserMapper.map(response.body());
+                        listener.onSuccess(CurrentUser.getInstance());
+
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ECurrentUser> call, Throwable t) {
+                if (listener != null) listener.onError(t);
+            }
+        });
+    }
+
 /*
     public void signup(String email, String password, final ApiListener<Integer> listener) {
         apiService.postUser(email, password).enqueue(new Callback<ResponseBody>() {
@@ -127,25 +156,6 @@ public class ApiProvider {
         });
     }
 
-    public void login(String email, String password, final ApiListener<User> listener) {
-        apiService.login(email, password).enqueue(new Callback<EUser>() {
-            @Override
-            public void onResponse(Call<EUser> call, Response<EUser> response) {
-                if (listener != null) {
-                    if (response.code() == 200) {
-                        UserMapper userMapper = new UserMapper();
-                        User user = userMapper.map(response.body());
-                    }
-                    listener.onSuccess(User.getInstance());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<EUser> call, Throwable t) {
-                if (listener != null) listener.onError(t);
-            }
-        });
-    }
 */
     public void deleteProduct(int id_product, final ApiListener<Integer> listener) {
         apiService.deleteProduct(id_product).enqueue(new Callback<ResponseBody>() {

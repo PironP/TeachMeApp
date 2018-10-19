@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -12,6 +13,7 @@ import com.google.gson.Gson;
 import com.pierrepiron.teachme.R;
 import com.pierrepiron.teachme.dto.mainApi.ApiListener;
 import com.pierrepiron.teachme.dto.mainApi.ApiProvider;
+import com.pierrepiron.teachme.dto.model.CurrentUser;
 import com.pierrepiron.teachme.dto.model.Deposit;
 import com.pierrepiron.teachme.dto.model.Product;
 
@@ -56,6 +58,9 @@ public class DepositActivity extends AppCompatActivity {
     @BindView(R.id.textView9)
     TextView textView9;
 
+    @BindView(R.id.deposit_login)
+    Button loginButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,8 +87,19 @@ public class DepositActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (CurrentUser.getInstance().getLoggedIn()) {
+            loginButton.setVisibility(View.GONE);
+        }
+    }
+
     protected void loadView(Deposit deposit) {
         calculNumberOfProductByCat(deposit);
+        if (CurrentUser.getInstance().getLoggedIn()) {
+            loginButton.setVisibility(View.GONE);
+        }
     }
 
     protected void calculNumberOfProductByCat(Deposit deposit) {

@@ -1,6 +1,7 @@
 package com.pierrepiron.teachme.dto.mainApi;
 
 import com.pierrepiron.teachme.dto.model.Deposit;
+import com.pierrepiron.teachme.dto.model.ECurrentUser;
 import com.pierrepiron.teachme.dto.model.EDeposit;
 import com.pierrepiron.teachme.dto.model.EProduct;
 import com.pierrepiron.teachme.dto.model.EUser;
@@ -33,7 +34,7 @@ public interface ApiService {
     @POST("users/") Call<ResponseBody> postUser(@Field("user") User user);
 
     @FormUrlEncoded
-    @POST("users/login/") Call<EUser> login(@Field("email") String email, @Field("password") String password);
+    @POST("users/login/") Call<ECurrentUser> login(@Field("email") String email, @Field("password") String password);
 
     @FormUrlEncoded
     @POST("product/") Call<ResponseBody> postProduct(@Field("objet") Product product);
