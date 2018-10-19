@@ -24,9 +24,9 @@ public class DepositActivity extends AppCompatActivity {
 
     private Deposit deposit;
     private ArrayList<String> categoryList = new ArrayList<>();
-    private int[] productByCategorie = new int[11];
-    public static final String CATEGORIE_NAME_PARAM = "CATEGORIE_NAME_PARAM";
-    public static final String OBJECT_PARAM = "OBJECT_PARAM";
+    private int[] productByCategorie = new int[10];
+    public static final String DEPOSIT_ID_PARAM = "DEPOSIT_ID_PARAM";
+    public static final String CATEGORIE_ID_PARAM = "CATEGORIE_ID_PARAM";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,51 +75,48 @@ public class DepositActivity extends AppCompatActivity {
     @OnClick({ R.id.categorie1, R.id.categorie2, R.id.categorie3, R.id.categorie4, R.id.categorie5, R.id.categorie6, R.id.categorie7, R.id.categorie8, R.id.categorie9 })
     public void onCategorieClicked(Button button) {
         Intent intent = new Intent(this, ProductListActivity.class);
-        String categorieName = "";
+        int categorieId = 0;
         switch (button.getTag().toString()) {
             case ("1") : {
-                categorieName = "Calculatrice";
+                categorieId = 2;
             }
             break;
             case ("2") : {
-                categorieName = "Livre";
+                categorieId = 1;
             }
             break;
             case ("3") : {
-                categorieName = "Geometrie";
+                categorieId = 9;
             }
             break;
             case ("4") : {
-                categorieName = "Musique";
+                categorieId = 8;
             }
             break;
             case ("5") : {
-                categorieName = "Feuille";
+                categorieId = 4;
             }
             break;
             case ("6") : {
-                categorieName = "Cartable";
+                categorieId = 5;
             }
             break;
             case ("7") : {
-                categorieName = "Materiel";
+                categorieId = 3;
             }
             break;
             case ("8") : {
-                categorieName = "Materiel Informatique";
+                categorieId = 6;
             }
             break;
             case ("9") : {
-                categorieName = "Ciseaux";
+                categorieId = 7;
             }
             break;
         }
 
-        Gson gson = new Gson();
-        String productListJson = gson.toJson(deposit.getProductList());
-
-        intent.putExtra(OBJECT_PARAM, productListJson);
-        intent.putExtra(CATEGORIE_NAME_PARAM, categorieName);
+        intent.putExtra(DEPOSIT_ID_PARAM, deposit.getId_stockage());
+        intent.putExtra(CATEGORIE_ID_PARAM, categorieId);
         startActivity(intent);
     }
 

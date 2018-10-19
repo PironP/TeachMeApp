@@ -87,8 +87,6 @@ public class SearchActivity extends AppCompatActivity implements ProductAdapter.
         productAdapter.setListener(this);
         recyclerView.setAdapter(productAdapter);
 
-        // peopleAdapter.setListener(this);
-        // recyclerView.setAdapter(peopleAdapter);
     }
 
 
