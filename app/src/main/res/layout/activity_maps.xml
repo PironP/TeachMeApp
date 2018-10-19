@@ -45,7 +45,7 @@
     app:layout_constraintRight_toRightOf="parent"
     android:layout_marginTop="100dp"
     android:layout_marginRight="10dp"
-    android:background="@drawable/loupe"
+    android:background="@drawable/zoomin"
     android:onClick="onZoom"
 
         />
@@ -58,7 +58,7 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="140dp"
         android:layout_marginRight="10dp"
-        android:background="@drawable/loupe"
+        android:background="@drawable/zoomout"
         android:onClick="onZoom"
         />
 
