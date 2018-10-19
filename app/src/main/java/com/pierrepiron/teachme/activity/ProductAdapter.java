@@ -29,14 +29,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     @Override
     public ProductAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_item, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_item, parent, false);
         return new ViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(ProductAdapter.ViewHolder holder, int position) {
         final Product product = productList.get(position);
-        holder.productListContent.setText(product.getDescription());
+        holder.productItemName.setText(product.getDescription());
+        holder.productItemCategorie.setText(product.getCategorie());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,8 +55,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.product_list_content)
-        TextView productListContent;
+        @BindView(R.id.product_item_name)
+        TextView productItemName;
+
+        @BindView(R.id.product_item_categorie)
+        TextView productItemCategorie;
 
         public ViewHolder(View itemView) {
             super(itemView);
