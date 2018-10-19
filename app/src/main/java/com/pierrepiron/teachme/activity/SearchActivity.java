@@ -1,5 +1,6 @@
 package com.pierrepiron.teachme.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -44,6 +45,9 @@ public class SearchActivity extends AppCompatActivity implements ProductAdapter.
     TextView productDetailsDescription;
 
     private ArrayList<Product> productList = new ArrayList<>();
+
+    public static final String PRODUCT_DESC_PARAM = "PRODUCT_DESC_PARAM";
+    public static final String DEPOSIT_ID_PARAM = "DEPOSIT_ID_PARAM";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,14 +96,11 @@ public class SearchActivity extends AppCompatActivity implements ProductAdapter.
 
     @Override
     public void onProductClick(Product product) {
-        if (productDetails.getVisibility() == View.VISIBLE) {
-            return;
-        }
 
-        productDetailsDescription.setText(product.getDescription());
-        productDetailsNames.setText(product.getId_product());
-        // productDetailsCategorie.setText(product.getCategorie());
-        productDetails.setVisibility(View.VISIBLE);
+        Intent intent = new Intent(this, ProductDetailsActivity.class);
+        intent.putExtra(DEPOSIT_ID_PARAM, product.getId_stockage());
+        intent.putExtra(PRODUCT_DESC_PARAM, product.getDescription());
+        startActivity(intent);
     }
 
     @OnClick(R.id.close_product_details_button)
